@@ -21,3 +21,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
  ## Note
  
  `Be sure that the backend run in http://localhost:54768 other wise change port in user and pateint service`
+ 
+ ## Credentials
+ Username:`InnoTechAdmin`
+ Password:`P@ssw0rd`
