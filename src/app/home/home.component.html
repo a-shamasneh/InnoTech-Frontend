@@ -1,0 +1,27 @@
+<br>
+
+<p-table [columns]="cols" [value]="patients" [lazy]="true" (onLazyLoad)="loadPatientLazy($event)" [paginator]="true" 
+    [rows]="3" [totalRecords]="totalRecords" [loading]="loading">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Patient Name</th>
+            <th>Identity Number</th>
+            <th>Birth Date</th>
+            <th>MetaData Count</th>
+            <th>Last Entry</th>
+            <th>Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-patient>
+        <tr>
+            <td>{{patient.patientName}}</td>
+            <td>{{patient.identityNumber}}</td>
+            <td>{{patient.birthDate |date}}</td>
+            <td>{{patient.patientMetaData}}</td>
+            <td>{{patient.lastEntry}}</td>
+            <td style="text-align: center">
+                <p-button  (onClick)="save(patient)" icon="pi pi-check"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -1,0 +1,81 @@
+<br>
+<p-table [columns]="cols" [value]="patientsStatisticsList" [lazy]="true" (onLazyLoad)="loadStatisticsLazy($event)" [paginator]="true" 
+    [rows]="3" [totalRecords]="totalRecords">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th>
+              Visits Records
+            </th>
+            <th>
+               Common Patients Diseases
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td style="text-align: center" > 
+                <p-button  (onClick)="showDialogVisits(rowData.patientId)" icon="pi pi-copy"></p-button>
+            </td>
+            <td style="text-align: center">
+                
+                <p-button  (onClick)="showDialogCommon(rowData.patientId)"  icon="pi pi-copy">
+                </p-button>
+                
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<br>
+<p>Highest Month Visits: {{higestmonth.monthName?higestmonth.monthName:''}}</p>
+<p>Visits Count:{{higestmonth.visitsCount?higestmonth.visitsCount:''}}</p>
+<!-- end first grid and highest month  -->
+
+<!-- start dialog for patient visits -->
+<p-dialog header="Last Five visits" [(visible)]="displayVisitDiaolg" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70" 
+        [maximizable]="true" [baseZIndex]="10000">
+        <p-table [value]="patientVisits">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Visit Id</th>
+                    <th>Disease Name</th>
+                    <th>Visit Date</th>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-visit>
+                <tr>
+                    <td>{{visit.visitId}}</td>
+                    <td>{{visit.diseaseName}}</td>
+                    <td>{{visit.visitDate | date}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+</p-dialog>
+<!-- end dialog for patient visits -->
+<!-- start dialog for Common patient  -->
+<p-dialog header="Others patients Has Same Disease" [(visible)]="displayCommonDiaolg" [modal]="true" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70" 
+        [maximizable]="true" [baseZIndex]="10000">
+        <p-table [value]="commonPatients">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Patient Id</th>
+                    <th>Patient Name</th>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-patient>
+                <tr>
+                    <td>{{patient.patientId}}</td>
+                    <td>{{patient.patientName}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+</p-dialog>
+<!-- end dialog for Common patient  -->
